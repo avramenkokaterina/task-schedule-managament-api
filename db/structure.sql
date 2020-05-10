@@ -1,63 +1,63 @@
-CREATE TABLE SystemUser (
-  Id        serial,
-  Login     varchar(64) NOT NULL,
-  Password  varchar(255) NOT NULL,
-  FullName  varchar(255)
+CREATE TABLE system_users (
+  id        serial,
+  login     varchar(64) NOT NULL,
+  password  varchar(255) NOT NULL,
+  full_name  varchar(255)
 );
 
-ALTER TABLE SystemUser ADD CONSTRAINT pkSystemUser PRIMARY KEY (Id);
+ALTER TABLE system_users ADD CONSTRAINT pkSystemUser PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX akSystemUserLogin ON SystemUser (Login);
+CREATE UNIQUE INDEX akSystemUserLogin ON system_users (login);
 
-CREATE TABLE SystemGroup (
-  Id    serial,
-  Name  varchar(64) NOT NULL
+CREATE TABLE system_groups (
+  id    serial,
+  name  varchar(64) NOT NULL
 );
 
-ALTER TABLE SystemGroup ADD CONSTRAINT pkSystemGroup PRIMARY KEY (Id);
+ALTER TABLE system_groups ADD CONSTRAINT pkSystemGroup PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX akSystemGroupName ON SystemGroup (Name);
+CREATE UNIQUE INDEX akSystemGroupName ON system_groups (name);
 
-CREATE TABLE GroupUser (
-  GroupId  integer NOT NULL,
-  UserId   integer NOT NULL
+CREATE TABLE group_user (
+  group_id  integer NOT NULL,
+  user_id   integer NOT NULL
 );
 
-ALTER TABLE GroupUser ADD CONSTRAINT pkGroupUser PRIMARY KEY (GroupId, UserId);
-ALTER TABLE GroupUser ADD CONSTRAINT fkGroupUserGroupId FOREIGN KEY (GroupId) REFERENCES SystemGroup (Id) ON DELETE CASCADE;
-ALTER TABLE GroupUser ADD CONSTRAINT fkGroupUserUserId FOREIGN KEY (UserId) REFERENCES SystemUser (Id) ON DELETE CASCADE;
+ALTER TABLE group_user ADD CONSTRAINT pkGroupUser PRIMARY KEY (group_id, user_id);
+ALTER TABLE group_user ADD CONSTRAINT fkGroupUserGroupId FOREIGN KEY (group_id) REFERENCES system_groups (id) ON DELETE CASCADE;
+ALTER TABLE group_user ADD CONSTRAINT fkGroupUserUserId FOREIGN KEY (user_id) REFERENCES system_users (id) ON DELETE CASCADE;
 
-CREATE TABLE Session (
-  Id      serial,
-  UserId  integer NOT NULL,
-  Token   varchar(64) NOT NULL,
-  IP      varchar(45) NOT NULL,
-  Data    text
+CREATE TABLE sessions (
+  id      serial,
+  user_id  integer NOT NULL,
+  token   varchar(64) NOT NULL,
+  ip      varchar(45) NOT NULL,
+  data    text
 );
 
-ALTER TABLE Session ADD CONSTRAINT pkSession PRIMARY KEY (Id);
+ALTER TABLE sessions ADD CONSTRAINT pkSession PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX akSession ON Session (Token);
+CREATE UNIQUE INDEX akSession ON sessions (token);
 
-ALTER TABLE Session ADD CONSTRAINT fkSessionUserId FOREIGN KEY (UserId) REFERENCES SystemUser (Id) ON DELETE CASCADE;
+ALTER TABLE sessions ADD CONSTRAINT fkSessionUserId FOREIGN KEY (user_id) REFERENCES system_users (id) ON DELETE CASCADE;
 
 CREATE TABLE Country (
-  Id    serial,
-  Name  varchar(64) NOT NULL
+  id    serial,
+  name  varchar(64) NOT NULL
 );
 
-ALTER TABLE Country ADD CONSTRAINT pkCountry PRIMARY KEY (Id);
+ALTER TABLE Country ADD CONSTRAINT pkCountry PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX akCountry ON Country (Name);
+CREATE UNIQUE INDEX akCountry ON Country (name);
 
 CREATE TABLE City (
-  Id         serial,
-  Name       varchar(64) NOT NULL,
+  id         serial,
+  name       varchar(64) NOT NULL,
   CountryId  integer NOT NULL
 );
 
-ALTER TABLE City ADD CONSTRAINT pkCity PRIMARY KEY (Id);
+ALTER TABLE City ADD CONSTRAINT pkCity PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX akCity ON City (Name);
+CREATE UNIQUE INDEX akCity ON City (name);
 
-ALTER TABLE City ADD CONSTRAINT fkCityCountryId FOREIGN KEY (CountryId) REFERENCES Country (Id) ON DELETE CASCADE;
+ALTER TABLE City ADD CONSTRAINT fkCityCountryId FOREIGN KEY (CountryId) REFERENCES Country (id) ON DELETE CASCADE;
