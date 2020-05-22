@@ -6,5 +6,5 @@ async ({ projectId, sprintId }) => {
     sprintId: sprintId ? null : [null, sprintId]
   };
   const data = await application.db.select('tasks', undefined, where);
-  return { result: 'success', data };
+  return data;
 };

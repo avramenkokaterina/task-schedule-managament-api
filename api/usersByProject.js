@@ -6,5 +6,5 @@ async ({ projectId }) => {
       WHERE up.project_id = $1`;
   const queryResult = await application.db.query(sql, [projectId]);
   const data = (queryResult.rows || []).map(api.fromSnakeCase);
-  return { result: 'success', data };
+  return data;
 };

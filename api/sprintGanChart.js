@@ -46,5 +46,5 @@ async ({ sprintId }) => {
           .sort((a, b) => a.order - b.order)
       };
     });
-  return { result: 'success', data };
+  return data;
 };

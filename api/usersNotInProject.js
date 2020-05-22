@@ -8,5 +8,5 @@ async ({ projectId }) => {
     `system_users ${where}`,
     ['DISTINCT full_name', 'id']
   );
-  return { result: 'success', data };
+  return data;
 };
