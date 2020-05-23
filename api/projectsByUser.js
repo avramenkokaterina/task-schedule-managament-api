@@ -1,6 +1,6 @@
 async ({ userId }) => {
   const sql =
-      `SELECT p.id as id, p.name as name, p.code as code, s.name as sprint,
+      `SELECT p.id as id, p.name as name, p.code as code, s.name as sprint, p.active_sprint_id,
             p.start_date as start_date, p.due_date as due_date, s.code as sprint_code,
         (
                 SELECT COUNT(up.user_id)

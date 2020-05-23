@@ -34,7 +34,8 @@
     "test": "npm run -s lint && node test/all.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext js  **/*.js",
-    "install": "cert\\generate.sh"
+    "install": "cert\\generate.sh",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
