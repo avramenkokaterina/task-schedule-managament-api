@@ -2,19 +2,19 @@ async ({ sprintId }) => {
   const sql =
       `SELECT u.id        as user_id,
               u.full_name as user_full_name,
-              (
-                  SELECT COUNT(id)
-                  FROM tasks
-                  WHERE sprint_id = 1
-                    AND user_id = u.id
-                    AND status IN ('open', 'in_progress')
-              )           as not_completed,
+              u.color     as color,
               (
                   SELECT COUNT(id)
                   FROM tasks
                   WHERE sprint_id = $1
                     AND user_id = u.id
-                    AND status <> 'canceled'
+                    AND status IN ('closed', 'canceled')
+              )           as completed,
+              (
+                  SELECT COUNT(id)
+                  FROM tasks
+                  WHERE sprint_id = $1
+                    AND user_id = u.id
               )           as total,
               t.*
        FROM system_users u
@@ -29,9 +29,10 @@ async ({ sprintId }) => {
       return {
         user: {
           id: userId,
-          name: rows[0] && rows[0].userFullName
+          name: rows[0] && rows[0].userFullName,
+          color: rows[0] && rows[0].color
         },
-        notCompleted: rows[0] && rows[0].notCompleted || 0,
+        completed: rows[0] && rows[0].completed || 0,
         total: rows[0] && rows[0].total || 0,
         tasks: rows
           .map(row => {

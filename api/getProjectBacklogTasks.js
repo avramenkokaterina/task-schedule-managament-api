@@ -1,10 +1,6 @@
 async ({ projectId, sprintId }) => {
-  const where = {
-    projectId,
-    status: 'open',
-    dueDate: '>' + new Date().toISOString(),
-    sprintId: sprintId ? null : [null, sprintId]
-  };
-  const data = await application.db.select('tasks', undefined, where);
+  const sprintIdWhere = sprintId ? `sprint_id IS NULL OR sprint_id = ${sprintId}` : 'sprint_id IS NULL'
+  const where = `WHERE project_id = ${projectId} AND status = 'open' AND due_date > NOW() AND (${sprintIdWhere})`;
+  const data = await application.db.select(`tasks ${where}`, undefined);
   return data;
 };
