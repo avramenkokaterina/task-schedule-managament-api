@@ -1,6 +1,6 @@
 async ({ projectId }) => {
   const sql = `
-      SELECT u.id, u.full_name, u.position, u.email
+      SELECT u.id, u.full_name, u.position, u.email, u.color
       FROM system_users u
                JOIN users_projects up ON u.id = up.user_id
       WHERE up.project_id = $1`;
