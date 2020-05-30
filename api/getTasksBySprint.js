@@ -1,7 +1,7 @@
 async ({ sprintId }) => {
   const where = { 't.sprint_id': sprintId };
   const data = await application.db.select(
-    'tasks t join system_users u ON t.user_id = u.id',
+    'tasks t left join system_users u ON t.user_id = u.id',
     [
       't.id',
       't.code',

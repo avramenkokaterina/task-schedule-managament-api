@@ -29,7 +29,7 @@ async ({ sprintId }) => {
       return {
         user: {
           id: userId,
-          name: rows[0] && rows[0].userFullName,
+          fullName: rows[0] && rows[0].userFullName,
           color: rows[0] && rows[0].color
         },
         completed: rows[0] && rows[0].completed || 0,

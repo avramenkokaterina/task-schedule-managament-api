@@ -6,7 +6,7 @@ async ({ projectId }) => {
   const where = `WHERE id NOT IN (${subQuery})`;
   const data = await application.db.select(
     `system_users ${where}`,
-    ['DISTINCT full_name', 'id']
+    ['DISTINCT full_name', 'id', 'color']
   );
   return data;
 };
