@@ -20,7 +20,8 @@ async ({ sprintId }) => {
       't.description',
       't.name',
       't.code',
-      't.order_number'
+      't.order_number',
+      't.actual_duration'
     ],
     where
   );

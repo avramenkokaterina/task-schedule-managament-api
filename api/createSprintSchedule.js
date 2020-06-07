@@ -44,7 +44,7 @@ async ({ sprintId }) => {
     });
   });
   await Promise.all(taskPromises);
-  // await application.db.update('sprints', { readonly: true }, { id: sprintId });
+  await application.db.update('sprints', { readonly: true }, { id: sprintId });
 
   return { result: 'success' };
 };
