@@ -44,7 +44,7 @@ async ({ sprintId }) => {
               notCompleted: undefined
             };
           })
-          .sort((a, b) => a.order - b.order)
+          .sort((a, b) => a.orderNumber - b.orderNumber)
       };
     });
   return data;
