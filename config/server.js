@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  host: '127.0.0.1',
+  host: '0.0.0.0',
   transport: 'http',
   ports: [8000],
   timeout: 5000,
